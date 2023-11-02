@@ -1,6 +1,6 @@
 # Arsene Library - Laravel Framework
 
-<img src="git-thumbnail.png" alt="arsene logo" style="margin: auto" height="auto" width="200px">
+<img src="git-thumbnail.png" alt="arsene logo" style="margin: auto" height="auto" width="100%">
 
 ## Overview
 
