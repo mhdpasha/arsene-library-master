@@ -1,6 +1,6 @@
 # Arsene Library - Laravel Framework
 
-[Arsene Lib Logo](https://github.com/mhdpasha/arsene-library-master/blob/master/public/assets/img/arsene-lib-logo-white.png)
+![Arsene Lib Logo](https://github.com/mhdpasha/arsene-library-master/blob/master/public/assets/img/arsene-lib-logo-white.png)
 
 ## Overview
 
