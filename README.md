@@ -4,7 +4,7 @@
 
 ## Overview
 
-Welcome to the School Library Website, a comprehensive online library platform designed for school use. This website library serves as a valuable resource for students and educators, offering a wide range of educational materials, textbooks, and resources.
+Welcome to the enchanting world of Arsene Library, where the boundless realms of knowledge converge to embrace students and educators in an embrace of wisdom's grace. Here, amidst the hallowed digital shelves, a treasury of educational materials and textbooks await, a symphony of resources that shall serenade the curious minds in their pursuit of enlightenment.
 
 ## Features
 
