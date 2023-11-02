@@ -1,6 +1,6 @@
 # Arsene Library - Laravel Framework
 
-![Arsene Lib Logo](arsene-lib-logo-white.png)
+<img src="arsene-lib-logo-white.png" alt="arsene logo">
 
 ## Overview
 
