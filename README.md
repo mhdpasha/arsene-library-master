@@ -1,5 +1,7 @@
 # Arsene Library - Laravel Framework
 
+![Arsene Lib Logo](public/assets/img/arsene-lib-logo-white.png)
+
 ## Overview
 
 Welcome to the School Library Website, a comprehensive online library platform designed for school use. This website library serves as a valuable resource for students and educators, offering a wide range of educational materials, textbooks, and resources.
