@@ -24,7 +24,7 @@ To get started with this project, follow these steps:
 
 ## Usage
 
-The School Library Website is designed to provide students and educators with easy access to educational materials. You can search for books, view details, and borrow them online.
+Welcome to Arsene Library, your gateway to a comprehensive online library designed for students and educators. This platform provides easy access to a wealth of educational materials, including books, enabling you to search, view details, and borrow them online.
 
 ## Technologies Used
 
