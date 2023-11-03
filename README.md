@@ -24,7 +24,7 @@ To get started with this project, follow these steps:
 
 ## Usage
 
-Welcome to Arsene Library, your gateway to a comprehensive online library designed for students and educators. This platform provides easy access to a wealth of educational materials, including books, enabling you to search, view details, and borrow them online.
+This platform provides easy access to a wealth of educational materials, including books, enabling you to search, view details, and borrow them online.
 
 ## Technologies Used
 
