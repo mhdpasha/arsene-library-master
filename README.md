@@ -4,7 +4,7 @@
 
 ## Overview
 
-Welcome to the School Library Website, a comprehensive online library platform designed for school use. This website library serves as a valuable resource for students and educators, offering a wide range of educational materials, textbooks, and resources.
+Welcome to the enchanting world of Arsene Library, where the boundless realms of knowledge converge to embrace students and educators in an embrace of wisdom's grace. Here, amidst the hallowed digital shelves, a treasury of educational materials and textbooks await, a symphony of resources that shall serenade the curious minds in their pursuit of enlightenment.
 
 ## Features
 
@@ -17,14 +17,15 @@ Welcome to the School Library Website, a comprehensive online library platform d
 
 To get started with this project, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/yourusername/school-library.git`
-2. Install project dependencies: `composer install`
-3. Create a copy of the `.env` file: `cp .env.example .env`
-4. Generate an application key: `php artisan key:generate`
+1. Clone the repository: `https://github.com/mhdpasha/arsene-library-master.git`
+2. The `.env` file is included, no need to config it (free app pahala jariyah)
+3. Add Database with `arsene-lib` name in phpmyadmin 
+4. Migrate and seed `php artisan migrate:fresh --seed`
+5. User and Password init available on `UserSeeder.php`, use `email` and `password` field.
 
 ## Usage
 
-The School Library Website is designed to provide students and educators with easy access to educational materials. You can search for books, view details, and borrow them online.
+This platform provides easy access to a wealth of educational materials, including books, enabling you to search, view details, and borrow them online.
 
 ## Technologies Used
 
@@ -50,4 +51,4 @@ For questions or further information, feel free to contact me on Instagram: [@mh
 
 ## Acknowledgments
 
-We'd like to express our gratitude to [Creative Tim](https://www.creative-tim.com/product/soft-ui-dashboard) for the Soft UI design that inspired the look and feel of this project.
+I'd like to express my gratitude to [Creative Tim](https://www.creative-tim.com/product/soft-ui-dashboard) for the Soft UI design that inspired the look and feel of this project.
