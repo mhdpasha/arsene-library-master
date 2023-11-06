@@ -15,7 +15,10 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        //
+        return view('daftar-genre', [
+            'data' => Kategori::all(),
+            'select' => [1, 0]
+        ]);
     }
 
     /**
@@ -36,7 +39,15 @@ class KategoriController extends Controller
      */
     public function store(StoreKategoriRequest $request)
     {
-        //
+        $validated = $request->validate([
+            'nama' => 'required|max:25',
+            'genre_id' => 'required',
+            'deskripsi' => 'required',
+            'status' => 'required'
+        ]);
+        Kategori::create($validated);
+
+        return redirect()->back()->with('added', 'Genre berhasil ditambahkan');
     }
 
     /**
@@ -68,9 +79,10 @@ class KategoriController extends Controller
      * @param  \App\Models\Kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateKategoriRequest $request, Kategori $kategori)
+    public function update(UpdateKategoriRequest $request, Kategori $genre)
     {
-        //
+        $genre->update($request->all());
+        return redirect()->back()->with('saved', "Genre {$genre->nama} telah di-update");
     }
 
     /**
@@ -79,8 +91,9 @@ class KategoriController extends Controller
      * @param  \App\Models\Kategori  $kategori
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Kategori $kategori)
+    public function destroy(Kategori $genre)
     {
-        //
+        $genre->delete();
+        return redirect()->back()->with('deleted', "Genre telah dihapus");
     }
 }

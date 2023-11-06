@@ -22,10 +22,10 @@ class HistoryController extends Controller
         $user = auth()->user()->id;
         $now = Carbon::now();
 
-        $bukuTelat = Pinjam::where('user_id', $user)->where('tanggal_setor', '>', 'tanggal_pinjam')->get();
+        $bukuTelat = Pinjam::where('tanggal_setor', '>', 'tanggal_kembali')->get();
 
         foreach ($bukuTelat as $buku) {
-            $tanggalKembali = Carbon::parse($buku->tanggal_setor);
+            $tanggalKembali = Carbon::parse($buku->tanggal_kembali);
             $lamaTelat = $tanggalKembali->diffInDays($now);
 
             $denda = 0;

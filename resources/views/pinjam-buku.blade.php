@@ -52,7 +52,7 @@
                                 <th>No</th>
                                 <th>Nama Anggota</th>
                                 <th>Buku</th>
-                                <th>Tanggal Pengajuan</th>
+                                <th>Tanggal Pinjam</th>
                                 <th>Tanggal Kembali</th>
                                 <th>Alasan</th>
                                 <th width="80px"></th>
@@ -62,7 +62,7 @@
                             @foreach ($data as $pinjam)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td><strong>{{ $pinjam->user->name }}</strong></td>
+                                <td><strong>{{ $pinjam->user->name }}{{ ($pinjam->kode_peminjaman) ? " | {$pinjam->kode_peminjaman}" : '' }}</strong></td>
                                 <td><a class="text-body" href="{{ route('buku.show', $pinjam->buku->uuid) }}">{{ $pinjam->buku->judul }} | {{ $pinjam->buku->pengarang }}</a></td>
                                 <td>{{ date('d M Y', strtotime($pinjam->tanggal_pinjam))}}</td>
                                 <td>{{ date('d M Y', strtotime($pinjam->tanggal_kembali))}}</td>
@@ -117,7 +117,6 @@
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
                     <div class="table-responsive px-4 py-4">
-
                                 @if ($errors->any())
                                     <div class="alert alert-primary alert-dismissible fade show mt-4" role="alert" data-dismiss="alert" style="cursor: pointer;">
                                         <h4 class="text-white"><strong>Field belum terisi sepenuhnya.</strong></h4>
@@ -126,24 +125,6 @@
                                                 <li>{{ $error }}</li>
                                             @endforeach
                                         </ul>
-                                    </div>
-                            @elseif (session()->has('added'))
-                                    <div class="alert alert-dark alert-dismissible fade show mt-4" role="alert" data-dismiss="alert" style="cursor: pointer;">
-                                        <strong class="d-flex items-center justify-content-center text-white">
-                                             {{ session('added') }}
-                                        </strong>
-                                    </div>
-                            @elseif (session()->has('saved'))
-                                    <div class="alert alert-secondary alert-dismissible fade show mt-4" role="alert" data-dismiss="alert" style="cursor: pointer;">
-                                        <strong class="d-flex items-center justify-content-center text-white">
-                                             {{ session('saved') }}
-                                        </strong>
-                                    </div>
-                            @elseif (session()->has('deleted'))
-                                    <div class="alert alert-light alert-dismissible fade show mt-4" role="alert" data-dismiss="alert" style="cursor: pointer;">
-                                        <strong class="d-flex items-center justify-content-center">
-                                             {{ session('deleted') }}
-                                        </strong>
                                     </div>
                             @endif
                         
@@ -177,7 +158,9 @@
                                           <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content px-3">
                                               <div class="modal-body">
-                                                <img class="border-radius-lg my-3" src="{{ $buku->image }}" alt="cover" height="auto" width="100%">
+                                                <a class="mx-auto" href="{{ route('buku.show', $buku->uuid) }}">
+                                                  <img class="border-radius-lg my-3" src="{{ $buku->image }}" alt="cover" height="auto" width="100%">
+                                                </a>
                                                 <h3 class="font-weight-bolder text-dark text-gradient my-2">{{ $buku->judul }}</h3>
                                                 <p class="mb-5 text-justify">{{ $buku->deskripsi }}<p>
                                                 <a class="btn bg-gradient-dark" style="width: 100%" href="{{ route('buku.show', $buku->uuid) }}">Pinjam</a>

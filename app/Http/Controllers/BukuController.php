@@ -66,9 +66,7 @@ class BukuController extends Controller
      */
     public function show(Buku $buku)
     {
-        return view('pinjam-show', [
-            'buku' => $buku
-        ]);
+        return view('pinjam-show', ['buku' => $buku]);
     }
 
     /**

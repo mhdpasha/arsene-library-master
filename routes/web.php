@@ -9,6 +9,7 @@ use App\Http\Controllers\PinjamController;
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\InfoUserController;
+use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionsController;
 use App\Http\Controllers\DashboardController;
@@ -33,6 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
 	// Pustakawan
 	Route::group(['middleware' => 'pustakawan'], function () {
 		Route::resource('user', AnggotaController::class);
+		Route::resource('genre', KategoriController::class);
 		Route::resource('buku', BukuController::class)->except([
 			'create', 'edit'
 		]);

@@ -49,11 +49,11 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th>Status</th>
                                     <th>Buku</th>
                                     <th>Tanggal Peminjaman</th>
                                     <th>Rencana Kembali</th>
                                     <th>Tanggal Kembali</th>
-                                    <th>Status</th>
                                     <th>Denda</th>
                                 </tr>
                             </thead>
@@ -61,10 +61,6 @@
                                 @foreach ($data as $history)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $history->buku->judul?? "Buku dihapus" }} | {{ $history->buku->pengarang?? "Null" }}</td>
-                                    <td>{{ date('d - M - Y', strtotime($history->tanggal_pinjam)) }}</td>
-                                    <td>{{ date('d - M - Y', strtotime($history->tanggal_kembali)) }}</td>
-                                    <td>{{ date('d - M - Y', strtotime($history->tanggal_setor)) }}</td>
                                     @if ($history->status == 'accepted')
                                     <td><span class="badge bg-gradient-warning">Dipinjam</span></td>
                                     @elseif ($history->status == 'rejected')
@@ -78,6 +74,10 @@
                                     @else
                                     <td><span class="badge bg-gradient-secondary">Pending</span></td>
                                     @endif
+                                    <td>{{ $history->buku->judul?? "Buku dihapus" }} | {{ $history->buku->pengarang?? "-" }}</td>
+                                    <td>{{ date('d - M - Y', strtotime($history->tanggal_pinjam)) }}</td>
+                                    <td>{{ date('d - M - Y', strtotime($history->tanggal_kembali)) }}</td>
+                                    <td>{{ ($history->tanggal_setor) ? date('d - M - Y', strtotime($history->tanggal_setor)) : '-' }}</td>
                                     <td>{{ ($history->denda > 0) ? 'Rp '.number_format($history->denda, 0, '', '.') : '-' }}</td>
                                 </tr>
                                 @endforeach

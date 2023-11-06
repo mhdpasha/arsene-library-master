@@ -9,9 +9,9 @@
                 <div class="card-header pb-0">
                     <div class="d-flex flex-row justify-content-between">
                         <div>
-                            <h5 class="mb-0"><strong>Daftar Buku</strong></h5>
+                            <h5 class="mb-0"><strong>Daftar Genre</strong></h5>
                         </div>
-                        <a href="#" class="btn bg-gradient-dark btn-sm mb-0" type="button" data-bs-toggle="modal" data-bs-target="#modal-form">+&nbsp; Tambah Buku</a>
+                        <a href="#" class="btn bg-gradient-dark btn-sm mb-0" type="button" data-bs-toggle="modal" data-bs-target="#modal-form">+&nbsp; Tambah Genre</a>
                     </div>
                 </div>
                 <div class="card-body px-0 pt-0 pb-2">
@@ -50,83 +50,69 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
-                                    <th>Judul</th>
-                                    <th>Pengarang</th>
-                                    <th>Penerbit</th>
-                                    <th>Kategori</th>
-                                    <th>Stok Buku</th>
-                                    <th>Tanggal Pengarsipan</th>
+                                    <th>Status</th>
+                                    <th width="100px">ID Genre</th>
+                                    <th>Genre</th>
+                                    <th>Deskripsi</th>
                                     <th width="120px"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($data as $buku)
+                                @foreach ($data as $genre)
                                 <tr>
                                     <td class="text-center">{{ $loop->iteration }})</td>
-                                    <td><a class="text-body text-bolder" href="{{ route('buku.show', $buku->uuid) }}">{{ $buku->judul }}</a></td>
-                                    <td>{{ $buku->pengarang }}</td>
-                                    <td>{{ $buku->penerbit }}</td>
-                                    <td>{{ $buku->kategori->nama }}</td>
-                                    <td>{{ $buku->stok }}</td>
-                                    <td>{{ $buku->created_at->format('d M Y') }}</td>
+                                        @if ($genre->status)
+                                        <td><span class="badge bg-gradient-success">Aktif</span></td>
+                                        @else
+                                        <td><span class="badge bg-gradient-danger">Nonaktif</span></td>
+                                        @endif
+                                    <td>{{ $genre->genre_id }}</td>
+                                    <td>{{ $genre->nama }}</td>
+                                    <td>{{ $genre->deskripsi }}</td>
                                     <td>
-                                        {{-- Action Button --}}
                                         <div class="d-flex justify-center align-items-center">
-                                            <button class="btn btn-sm btn-dark me-2" data-bs-toggle="modal" data-bs-target="#modal-edit{{ $buku->id }}" style="padding: 0; width: 55px; height: 35px">Edit</button>
-                                            <form action="{{ route('buku.destroy', $buku) }}" method="POST">
+                                            <button class="btn btn-sm btn-dark me-2" data-bs-toggle="modal" data-bs-target="#modal-edit{{ $genre->id }}" style="padding: 0; width: 55px; height: 35px">Edit</button>
+                                            <form action="{{ route('genre.destroy', $genre) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button class="btn btn-sm btn-dark me-2" style="padding: 0; width: 70px; height: 35px">Delete</button>
                                             </form>
                                         </div>
 
-                                        {{-- Modal --}}
-                                       <div class="modal fade" id="modal-edit{{ $buku->id }}" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
+                                       <div class="modal fade" id="modal-edit{{ $genre->id }}" tabindex="-1" role="dialog" aria-labelledby="modal-form" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered modal" role="document">
                                           <div class="modal-content">
                                             <div class="modal-body p-0">
                                               <div class="card card-plain">
                                                 <div class="card-body">
-                                                  <h3 class="font-weight-bolder text-dark text-gradient">Edit Detail Buku</h3>
-                                                  <form action="{{ route('buku.update', $buku) }}" method="POST">
+                                                  <h3 class="font-weight-bolder text-dark text-gradient">Edit Detail Genre</h3>
+                                                  <form action="{{ route('genre.update', $genre) }}" method="POST">
                                                       @csrf
                                                       @method('PATCH')
                                                       <div class="row g-3">
                                                         <div class="col">
-                                                            <label>Judul</label>
+                                                            <label>Genre</label>
                                                             <div class="input-group mb-3">
-                                                              <input type="text" class="form-control" placeholder="Judul buku" autocomplete="off" name="judul" value="{{ $buku->judul }}">
+                                                              <input type="text" class="form-control" placeholder="Nama Genre" autocomplete="off" name="nama" value="{{ $genre->nama }}">
                                                             </div>
                                                         </div>
                                                         <div class="col">
-                                                            <label>Pengarang</label>
+                                                            <label>ID Genre</label>
                                                             <div class="input-group mb-3">
-                                                              <input type="text" class="form-control" placeholder="Nama pengarang" autocomplete="off" name="pengarang" value="{{ $buku->pengarang }}">
+                                                              <input type="text" class="form-control" placeholder="ID Genre" autocomplete="off" name="genre_id" value="{{ $genre->genre_id }}">
                                                             </div>
                                                         </div>
                                                       </div>  
-                                                      <label>Penerbit</label>
+                                                      <label>Deskripsi</label>
                                                       <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="Nama penerbit" autocomplete="off" name="penerbit" value="{{ $buku->penerbit }}">
+                                                        <input type="text" class="form-control" placeholder="Deskripsi" autocomplete="off" name="deskripsi" value="{{ $genre->deskripsi }}">
                                                       </div>
-                                                      <label>Kategori Genre</label>
-                                                      <select class="form-select" name="kategori_id">
-                                                          @foreach ($select as $kategori)
-                                                            <option value="{{ $kategori->id }}" {{ ($kategori->id == $buku->kategori_id) ? 'selected' : '' }}>{{ $kategori->nama }}</option>
+                                                      <label>Status</label>
+                                                      <select class="form-select" name="status">
+                                                          @foreach ($select as $status)
+                                                            <option value="{{ $status }}" {{ ($status == $genre->status) ? 'selected' : '' }}>{{ ($status) ? "Aktif" : "Nonaktif" }}</option>
                                                           @endforeach
                                                       </select>
-                                                      <label>Deskripsi</label>
-                                                      <div class="form-floating">
-                                                        <textarea class="form-control" id="floatingTextarea2" style="height: 100px" autocomplete="off" name="deskripsi">{{ $buku->deskripsi }}</textarea>
-                                                      </div>
-                                                      <label>Cover Buku (opsional)</label>
-                                                      <div class="input-group mb-3">
-                                                        <input type="text" class="form-control" placeholder="CDN atau Link" autocomplete="off" name="image" value="{{ $buku->image }}">
-                                                      </div>
-                                                      <label>Stok Tersedia</label>
-                                                      <div class="input-group mb-3">
-                                                        <input type="number" class="form-control" placeholder="-" min="1" max="100" autocomplete="off" name="stok" value="{{ $buku->stok }}">
-                                                      </div>
                                                       <div class="text-center">
                                                         <button type="submit" class="btn btn-round bg-gradient-dark btn-lg w-100 mt-4 mb-0">Save</button>
                                                       </div>
@@ -163,49 +149,37 @@
           <div class="modal-body p-0">
             <div class="card card-plain">
               <div class="card-body">
-                <h3 class="font-weight-bolder text-dark text-gradient">Tambah Buku</h3>
-                <form action="{{ route('buku.store') }}" method="POST">
-                    @csrf
-                    <div class="row g-3">
-                      <div class="col">
-                          <label>Judul</label>
-                          <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Judul buku" autocomplete="off" name="judul">
-                          </div>
-                      </div>
-                      <div class="col">
-                          <label>Pengarang</label>
-                          <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Nama pengarang" autocomplete="off" name="pengarang">
-                          </div>
-                      </div>
-                    </div>  
-                    <label>Penerbit</label>
-                    <div class="input-group mb-3">
-                      <input type="text" class="form-control" placeholder="Nama penerbit" autocomplete="off" name="penerbit">
+                <h3 class="font-weight-bolder text-dark text-gradient">Tambah Genre</h3>
+                <form action="{{ route('genre.store') }}" method="POST">
+                  @csrf
+                  <div class="row g-3">
+                    <div class="col">
+                        <label>Genre</label>
+                        <div class="input-group mb-3">
+                          <input type="text" class="form-control" placeholder="Nama Genre" autocomplete="off" name="nama">
+                        </div>
                     </div>
-                    <label>Kategori Genre</label>
-                      <select class="form-select" name="kategori_id">
-                          @foreach ($select as $kategori)
-                            <option value="{{ $kategori->id }}">{{ $kategori->nama }}</option>
-                          @endforeach
-                      </select>
-                    <label>Deskripsi</label>
-                    <div class="form-floating">
-                      <textarea class="form-control" id="floatingTextarea2" style="height: 100px" autocomplete="off" name="deskripsi"></textarea>
+                    <div class="col">
+                        <label>ID Genre</label>
+                        <div class="input-group mb-3">
+                          <input type="text" class="form-control" placeholder="ID Genre" autocomplete="off" name="genre_id">
+                        </div>
                     </div>
-                    <label>Cover Buku (opsional)</label>
-                    <div class="input-group mb-3">
-                      <input type="text" class="form-control" placeholder="CDN atau Link" autocomplete="off" name="image">
-                    </div>
-                    <label>Stok Tersedia (default 5)</label>
-                    <div class="input-group mb-3">
-                      <input type="text" class="form-control" placeholder="5" autocomplete="off" name="stok">
-                    </div>
-                    <div class="text-center">
-                      <button type="submit" class="btn btn-round bg-gradient-dark btn-lg w-100 mt-4 mb-0">Save</button>
-                    </div>
-                </form>
+                  </div>  
+                  <label>Deskripsi</label>
+                  <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Deskripsi" autocomplete="off" name="deskripsi">
+                  </div>
+                  <label>Status</label>
+                  <select class="form-select" name="status">
+                      @foreach ($select as $status)
+                        <option value="{{ $status }}" {{ ($status == $genre->status) ? 'selected' : '' }}>{{ ($status) ? "Aktif" : "Nonaktif" }}</option>
+                      @endforeach
+                  </select>
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-round bg-gradient-dark btn-lg w-100 mt-4 mb-0">Submit</button>
+                  </div>
+              </form>
               </div>
               </div>
             </div>
@@ -228,10 +202,10 @@
   <script>
     $('#dataTable').DataTable({
       columnDefs: [
-        { "searchable": false, "targets": 6 }
+        { "searchable": false, "targets": 3 }
       ],
       oLanguage: {
-        "sSearch": "Cari buku: "
+        "sSearch": "Cari genre: "
       }
     });
     window.setTimeout(function() {

@@ -11,6 +11,7 @@ use Carbon\Carbon;
 
 class PinjamController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -21,11 +22,13 @@ class PinjamController extends Controller
         $pustakawan = (auth()->user()->pustakawan) ? 1 : 0;
         $queryPustakawan = Pinjam::where('history', null)->orderBy('id', 'DESC')->get();
         $queryAnggota = Buku::all();
+        $now = Carbon::now();
 
         return view('pinjam-buku', [
             'data' => ($pustakawan) ? $queryPustakawan : $queryAnggota,
             'rekomendasi' => Buku::inRandomOrder()->limit(3)->get(),
-            'pustakawan' => $pustakawan
+            'pustakawan' => $pustakawan,
+            'now' => $now
         ]);
     }
 
@@ -95,6 +98,7 @@ class PinjamController extends Controller
     {
         $user = $pinjam->user->name;
         $buku = Buku::find($pinjam->buku_id);
+
         $pinjam->update(['status' => $request->status]);
 
         if($request->returned) {
@@ -110,7 +114,7 @@ class PinjamController extends Controller
         }
 
         if($pinjam->status == 'accepted') {
-            $request['uuid'] = Str::orderedUuid();
+            $request['kode_peminjaman'] = Str::upper(Str::random(6));
             $request['tanggal_pinjam'] = Carbon::now();
 
             $pinjam->update($request->all());
@@ -120,6 +124,11 @@ class PinjamController extends Controller
             return redirect()->back()->with('added', "Buku {$buku->judul} telah dipinjam oleh {$user}");
         }
         else {
+            $pinjam->update([
+                'tanggal_setor' => Carbon::now(),
+                'status' => 'rejected',
+                'history' => 1
+            ]);
             return redirect()->back()->with('added', "Request {$user} telah ditolak.");
         }
     }

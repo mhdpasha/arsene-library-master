@@ -50,32 +50,32 @@
                             <thead>
                                 <tr>
                                     <th>No</th>
+                                    <th width="100px">Akses</th>
                                     <th>Nama</th>
                                     <th>Email</th>
                                     <th>No Telepon</th>
                                     <th>Alamat</th>
-                                    <th>Akses</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($data as $user)
                                 <tr>
-                                    <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>{{ $user->phone }}</td>
-                                    <td>{{ $user->location }}</td>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
                                     @if ($user->pustakawan)
                                     <td><span class="badge bg-gradient-primary">Pustakawan</span></td>
                                     @else
                                     <td><span class="badge bg-gradient-info">Anggota</span></td>
                                     @endif
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->phone }}</td>
+                                    <td>{{ $user->location }}</td>
                                     <td>
                                         <form action="{{ route('user.destroy', $user) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
-                                            <button class="btn btn-sm btn-dark me-2" style="padding: 0; width: 70px; height: 35px">Delete</button>
+                                            <button class="btn btn-sm bg-gradient-danger me-2" style="padding: 0; width: 70px; height: 35px">Ban</button>
                                         </form>
                                     </td>
                                 </tr>

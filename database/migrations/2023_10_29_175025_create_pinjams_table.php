@@ -21,9 +21,9 @@ return new class extends Migration
             $table->date('tanggal_kembali');
             $table->date('tanggal_setor')->nullable();
             $table->text('message')->nullable();
-            $table->text('uuid')->nullable();
             $table->integer('denda')->nullable();
             $table->enum('status', ['accepted', 'rejected', 'returned'])->nullable();
+            $table->text('kode_peminjaman')->nullable();
             $table->boolean('history')->nullable();
             $table->timestamps();
         });

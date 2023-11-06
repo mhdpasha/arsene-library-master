@@ -61,10 +61,12 @@
                     </div>
                 </div>
                 
-                @if($buku->stok > 0)  
+                @if ($buku->kategori->status == 0)
+                <button class="btn bg-gradient-secondary w-100 mt-3" disabled><strong>Buku Nonaktif</strong></button>
+                @elseif($buku->stok > 0)  
                 <button class="btn bg-gradient-dark w-100 mt-3" type="submit"><strong>Pinjam</strong></button>
                 @else
-                <button class="btn bg-gradient-secondary w-100 mt-3" disabled><strong>Stok habis</strong></button>
+                <button class="btn bg-gradient-secondary w-100 mt-3" disabled><strong>Stok Habis</strong></button>
                 @endif
             </form>
             @endif
